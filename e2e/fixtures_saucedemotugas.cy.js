@@ -5,14 +5,14 @@ describe('working inputs', () => {
       cy.visit('https://www.saucedemo.com/v1/index.html',{timeout : 10000})
       cy.url().should('include','index.html')
   });
-  it('should isi username',()=>{
-      cy.get('#user-name').clear()
-      cy.get('#user-name').type('username')
-  });
-  it('should isi password',()=>{
-    cy.get('input[name="password"]').clear()
-    cy.get('input[name="password"]').type('password')
-});
+  //it('should isi username',()=>{
+     // cy.get('#user-name').clear()
+      //cy.get('#user-name').type('username')
+  //});
+ // it('should isi password',()=>{
+    //cy.get('input[name="password"]').clear()
+    //cy.get('input[name="password"]').type('password')
+//});
 it('should coba login',()=>{
   cy.fixture("user").then(user =>{
       const username = user.username
