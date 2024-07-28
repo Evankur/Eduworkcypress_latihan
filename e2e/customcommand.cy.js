@@ -18,6 +18,8 @@ describe('working inputs', () => {
     cy.get('#pay_bills_tab > a').click()
     cy.transaksi() 
 
+    cy.get('#alert_content > span').should('have.text','The payment was successfully submitted.')
+    cy.get('#alert_container').should('be.visible')
     });
     
 

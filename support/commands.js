@@ -34,15 +34,17 @@ Cypress.Commands.add('login', (username, password) => {
         
     cy.get ('input[name="submit"]').click()
 })
-Cypress.Commands.add('transaksi',()=>{
+Cypress.Commands.add('transaksi',(pay,akun,amount,date)=>{
   
     //cy.get('#sp_payee').click()
 cy.get('#sp_payee').select('Apple')
+
 //cy.get('#sp_payee').click()
 cy.get('#sp_account').select('Loan')
 cy.get('#sp_amount').type('199')
 
 cy.get('#sp_date').type('2024-10-12')
+
 
 cy.get('#pay_saved_payees').click()
 
