@@ -51,7 +51,7 @@ it('description',()=>{
   cy.get('.inventory_list > :nth-child(2)').should('contain','Bike')
 })
 //test tombol product
-it('Test product to finish ',()=>{
+it('Test product until finish ',()=>{
   cy.contains('Backpack').click()
   cy.get('.btn_primary').click()
   cy.get('.bm-burger-button > button').click()
@@ -67,25 +67,50 @@ it('Test product to finish ',()=>{
 
   //Masuk ke chart
 cy.get('[class="svg-inline--fa fa-shopping-cart fa-w-18 fa-3x "]').click()
-cy.get(':nth-child(3) > .cart_item_label').contains('Backpack')
+cy.get(':nth-child(3) > .cart_item_label').should('contains.text','Backpack')
 cy.get(':nth-child(4) > .cart_item_label').contains('Bike')
 
 // masuk ke checkout
 cy.get('.btn_action').click()
 
+cy.get('.subheader').should('be.visible')
 cy.get('[data-test="firstName"]').type('Evan')
 cy.get('[data-test="lastName"]').type('Kurni')
 cy.get('[data-test="postalCode"]').type('10111213')
 cy.get('.btn_primary').click()
+cy.get('.subheader').should('be.visible')
+cy.get('.summary_subtotal_label').should('be.visible')
+cy.get('.summary_tax_label').should('be.visible')
+cy.get('.summary_total_label').should('be.visible')
 
 //selesai pembelian
 cy.get('.btn_action').click()
+cy.get('.complete-header').should('be.visible')
 
 //Menu balik 
 cy.get('.bm-burger-button > button').click()
-cy.get('#inventory_sidebar_link').click()
+cy.visit('https://www.saucedemo.com/v1/inventory.html',{timeout : 10000})
+cy.url().should('include','/inventory.html')
+cy.get('.product_label').should('be.visible')
+cy.get('.product_sort_container').select('Price (high to low)')
+cy.get(':nth-child(1) > .pricebar > .inventory_item_price').contains('$49.99')
+cy.get(':nth-child(1) > .pricebar > .btn_primary').click()
+cy.get(':nth-child(2) > .pricebar > .btn_primary').click()
+cy.get(':nth-child(3) > .pricebar > .btn_primary').click()
+cy.get(':nth-child(4) > .pricebar > .btn_primary').click()
+cy.get(':nth-child(5) > .pricebar > .btn_primary').click()
+cy.get(':nth-child(6) > .pricebar > .btn_primary').click()
+
+//Remove dari cart
+cy.get(':nth-child(1) > .pricebar > .btn_secondary').click()
+cy.get(':nth-child(4) > .pricebar > .btn_secondary').click()
+cy.get(':nth-child(6) > .pricebar > .btn_secondary').click()
+
+//Logout dari browser
 cy.get('.bm-burger-button > button').click()
-cy.get('#about_sidebar_link')
+cy.get('#logout_sidebar_link').click()
+cy.visit('https://www.saucedemo.com/v1/index.html',{timeout : 10000})
+cy.url().should('include','index.html')
 
 
 //Menu balik ke list procuk
